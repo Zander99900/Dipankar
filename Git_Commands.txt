@@ -2,5 +2,5 @@ $ git config --global code.editor emax
 $ git config --global user.email "dipankarkarmakardk007@gmail.com"
 $ git config --global user.name "Dipankar"
 
-
+rm -rf .git is used to delete all the version history of git
 Git commit added
