@@ -1,0 +1,6 @@
+$ git config --global code.editor emax
+$ git config --global user.email "dipankarkarmakardk007@gmail.com"
+$ git config --global user.name "Dipankar"
+
+
+Git commit added
