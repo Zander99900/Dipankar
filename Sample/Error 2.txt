@@ -1,1 +1,3 @@
 Git diff is used to compare staged files with working directory files
+
+git commit -a -m is used to directly commit files without adding them in staging area but this can only work for tracked files
