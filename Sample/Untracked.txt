@@ -1,0 +1,3 @@
+git rm --cached is used to untrack the file if it is already present in .gitignore
+
+Now git can't trace anything we do to this file unless we remove it from gitignore 
