@@ -28,5 +28,5 @@
             cin >> wt[i] >> val[i];
         }
         cout << func(n-1, w);
-     
+        cout <<"This is new change in competitive branch" << endl;
     }
