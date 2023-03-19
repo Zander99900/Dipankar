@@ -7,7 +7,7 @@ export default function TextForm(props) {
         setText(newText);
     };
 
-    const handleOnClick = () => {
+    const handleOnClick = (Event) => {
         console.log("On Change");
         setText(Event.target.value);
     };
