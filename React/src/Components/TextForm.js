@@ -7,11 +7,13 @@ export default function TextForm(props) {
     console.log("UpperCase Was Clicked" + text);
     let newText = text.toUpperCase();
     setText(newText);
+    props.showAlert("Converted To UpperCase", "success");
   };
   const handleLowClick = () => {
     console.log("UpperCase Was Clicked" + text);
     let newText = text.toLowerCase();
     setText(newText);
+    props.showAlert("Converted To LowerCase", "success");
   };
 
   const handleOnClick = (Event) => {
@@ -23,14 +25,19 @@ export default function TextForm(props) {
     var text = document.getElementById("myBox");
     text.select();
     navigator.clipboard.writeText(text.value);
+    props.showAlert("Copied To ClipBoard", "success");
   };
   const handleSpace = () => {
     var newtext = text.split(/[ ]+/); //Used Rejex
-    setText(newtext.join(" "))
+    setText(newtext.join(" "));
+    props.showAlert("Removed Extra Spaces", "success");
   };
   return (
     <>
-      <div className="container" style={{color: props.mode==='dark'?'white':'#042743'}}>
+      <div
+        className="container"
+        style={{ color: props.mode === "dark" ? "white" : "#042743" }}
+      >
         <h1>Zander's 1st Web-App</h1>
         <h1>{props.heading}</h1>
         <div className="mb-3">
@@ -38,10 +45,13 @@ export default function TextForm(props) {
             className="form-control"
             value={text}
             onChange={handleOnClick}
-            style={{backgroundColor: props.mode==='dark'?'grey':'white', color: props.mode==='dark'?'white':'#042743'}}
+            style={{
+              backgroundColor: props.mode === "dark" ? "grey" : "white",
+              color: props.mode === "dark" ? "white" : "#042743",
+            }}
             id="myBox"
             rows="8"
-            ></textarea>
+          ></textarea>
         </div>
         <button className="btn btn-primary mx-2" onClick={handleUpClick}>
           Convert To Uppercase
@@ -56,11 +66,13 @@ export default function TextForm(props) {
           Remove Extra Spaces
         </button>
       </div>
-      <div className="container my-3" style={{color: props.mode==='dark'?'white':'#042743'}}>
+      <div
+        className="container my-3"
+        style={{ color: props.mode === "dark" ? "white" : "#042743" }}
+      >
         <h2>Your text summary</h2>
         <p>
-          {text.split(" ").length} words and {text.length} characters including
-          Spaces
+        {text.trim().length === 0 ? 0: text.trim().split(" ").length} {/*0 word count logic*/} words and {text.length} characters including Spaces
         </p>
         <h2>Preview</h2>
         <p>{text}</p>
