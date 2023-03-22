@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+
 export default function Navbar(props) {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+      <nav className={`navbar navbar-expand-lg bg-${props.mode}`} data-bs-theme = {props.mode}>
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
             {props.Title}
@@ -32,17 +33,6 @@ export default function Navbar(props) {
                   {props.aboutText}
                 </a>
               </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="/"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Dropdown
-                </a>
-              </li>
             </ul>
             <form className="d-flex" role="search">
               <input
@@ -51,10 +41,14 @@ export default function Navbar(props) {
                 placeholder="Search"
                 aria-label="Search"
               />
-              <button className="btn btn-outline-success" type="submit">
+              <button className="btn btn-outline-success me-2" type="submit">
                 Search
               </button>
             </form>
+              <div className={`form-check form-switch text-${props.mode==='light'?'dark':'light'} my-3`}>
+              <input className="form-check-input" onClick={props.ToggleButton} type="checkbox" role="switch" id="flexSwitchCheckDefault"/>
+              <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Enable Dark Mode</label>
+            </div>
           </div>
         </div>
       </nav>
