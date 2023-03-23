@@ -11,8 +11,8 @@ function App() {
   const showAlert = (message, type) => {
     setAlert({
       msg: message,
-      type: type
-    })
+      type: type,
+    });
     setTimeout(() => {
       setAlert(null);
     }, 2000);
@@ -23,10 +23,19 @@ function App() {
       setmode("dark");
       document.body.style.backgroundColor = "#042743";
       showAlert("Dark mode has been enabled", "success");
+      document.title = "TextUtil - Dark Mode";
+      // Flashing Notification
+      // setInterval(() => {
+      //   document.title = "TextUtil - Awesome";
+      // }, 2000);
+      // setInterval(() => {
+      //   document.title = "TextUtil - New Notification";
+      // }, 1500);
     } else {
       setmode("light");
       document.body.style.backgroundColor = "white";
       showAlert("Light mode has been enabled", "success");
+      document.title = "TextUtil - Light Mode";
     }
   };
 
@@ -41,7 +50,11 @@ function App() {
       />
       <Alerts alert={alert} />
       <div className="container my-3">
-        <TextForm showAlert = {showAlert} heading="Enter the text to analyze below" mode={mode} />
+        <TextForm
+          showAlert={showAlert}
+          heading="Enter the text to analyze below"
+          mode={mode}
+        />
       </div>
       {/* { <div className="container"> <About/></div>} */}
     </>
