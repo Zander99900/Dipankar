@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import Navbar from "./Components/Navbar";
 import TextForm from "./Components/TextForm";
 import Alerts from "./Components/Alerts";
-// import About from './Components/About';
+import About from "./Components/About";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -42,6 +43,7 @@ function App() {
   return (
     //This will help organise codes in a clean way
     <>
+    <Router>
       <Navbar
         Title="TextUtils"
         aboutText="About us"
@@ -49,13 +51,13 @@ function App() {
         ToggleButton={ToggleButton}
       />
       <Alerts alert={alert} />
-      <div className="container my-3">
-        <TextForm
-          showAlert={showAlert}
-          heading="Enter the text to analyze below"
-          mode={mode}
-        />
-      </div>
+      <div className="container my3">
+          <Routes>
+            <Route path="/about" element={<About />}/>
+            <Route path="/" element={<TextForm heading="Enter text to analyze"  mode={mode} showAlert={showAlert} />}/>
+          </Routes>
+        </div>
+      </Router>
       {/* { <div className="container"> <About/></div>} */}
     </>
   );
