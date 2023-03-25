@@ -51,14 +51,11 @@ function App() {
         ToggleButton={ToggleButton}
       />
       <Alerts alert={alert} />
-      <div className="container my3">
           <Routes>
-            <Route path="/about" element={<About />}/>
+            <Route path="/about" element={<About mode={mode}/>}/>
             <Route path="/" element={<TextForm heading="Enter text to analyze"  mode={mode} showAlert={showAlert} />}/>
           </Routes>
-        </div>
       </Router>
-      {/* { <div className="container"> <About/></div>} */}
     </>
   );
 }
