@@ -1,15 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-// Github Pages Give error for react router so we remove all the changes we did to implement react router such as changing 'link to' to 'a href'
+
 export default function Navbar(props) {
   return (
     <div>
-      <nav
-        className={`navbar navbar-expand-lg bg-${props.mode}`}
-        data-bs-theme={props.mode}
-      >
+      <nav className={`navbar navbar-expand-lg bg-${props.mode}`} data-bs-theme = {props.mode}>
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
             {props.Title}
@@ -48,37 +45,10 @@ export default function Navbar(props) {
               <button className="btn btn-outline-success me-2" type="submit">
                 Search
               </button>
-            </form> */}
-            <div className="d-flex">
-              <div
-                className="bg-primary rounded mx-2"
-                onClick={() => {
-                  props.ToggleButton("primary");
-                }}
-                style={{ height: "20px", width: "20px", cursor: "pointer" }}
-              ></div>
-            </div>
-            <div className="d-flex">
-              <div
-                className="bg-danger rounded mx-2"
-                onClick={() => {
-                  props.ToggleButton("danger");
-                }}
-                style={{ height: "20px", width: "20px", cursor: "pointer" }}
-              ></div>
-            </div>
-            <div className="d-flex">
-              <div
-                className="bg-success rounded mx-2"
-                onClick={() => {
-                  props.ToggleButton("success");
-                }}
-                style={{
-                  height: "20px",
-                  width: "20px",
-                  cursor: "pointer",
-                }}
-              ></div>
+              </form>*/}
+              <div className={`form-check form-switch text-${props.mode==='light'?'dark':'light'} my-3`}>
+              <input className="form-check-input" onClick={props.ToggleButton} type="checkbox" role="switch" id="flexSwitchCheckDefault"/>
+              <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Enable Dark Mode</label>
             </div>
           </div>
         </div>
