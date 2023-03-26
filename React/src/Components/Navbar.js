@@ -38,7 +38,7 @@ export default function Navbar(props) {
                 </Link>
               </li>
             </ul>
-            <form className="d-flex" role="search">
+            {/* <form className="d-flex" role="search">
               <input
                 className="form-control me-2"
                 type="search"
@@ -48,25 +48,37 @@ export default function Navbar(props) {
               <button className="btn btn-outline-success me-2" type="submit">
                 Search
               </button>
-            </form>
-            <div
-              className={`form-check form-switch text-${
-                props.mode === "light" ? "dark" : "light"
-              } my-3`}
-            >
-              <input
-                className="form-check-input"
-                onClick={props.ToggleButton}
-                type="checkbox"
-                role="switch"
-                id="flexSwitchCheckDefault"
-              />
-              <label
-                className="form-check-label"
-                htmlFor="flexSwitchCheckDefault"
-              >
-                Enable Dark Mode
-              </label>
+            </form> */}
+            <div className="d-flex">
+              <div
+                className="bg-primary rounded mx-2"
+                onClick={() => {
+                  props.ToggleButton("primary");
+                }}
+                style={{ height: "20px", width: "20px", cursor: "pointer" }}
+              ></div>
+            </div>
+            <div className="d-flex">
+              <div
+                className="bg-danger rounded mx-2"
+                onClick={() => {
+                  props.ToggleButton("danger");
+                }}
+                style={{ height: "20px", width: "20px", cursor: "pointer" }}
+              ></div>
+            </div>
+            <div className="d-flex">
+              <div
+                className="bg-success rounded mx-2"
+                onClick={() => {
+                  props.ToggleButton("success");
+                }}
+                style={{
+                  height: "20px",
+                  width: "20px",
+                  cursor: "pointer",
+                }}
+              ></div>
             </div>
           </div>
         </div>
