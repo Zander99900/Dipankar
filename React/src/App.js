@@ -19,17 +19,8 @@ function App() {
     }, 2000);
   };
   const [mode, setmode] = useState("light");
-  const removeBackground = () =>{
-    document.body.classList.remove('bg-light');
-    document.body.classList.remove('bg-dark');
-    document.body.classList.remove('bg-primary');
-    document.body.classList.remove('bg-danger');
-    document.body.classList.remove('bg-success');
-  }
-  const ToggleButton = (cls) => {
-    removeBackground();
-    document.body.classList.add('bg-'+cls);
-    if (mode === "light" ) {
+  const ToggleButton = () => {
+    if (mode === "light") {
       setmode("dark");
       document.body.style.backgroundColor = "#042743";
       showAlert("Dark mode has been enabled", "success");
@@ -60,14 +51,11 @@ function App() {
         ToggleButton={ToggleButton}
       />
       <Alerts alert={alert} />
-      <div className="container my3">
           <Routes>
-            <Route path="/about" element={<About />}/>
+            <Route path="/about" element={<About mode={mode}/>}/>
             <Route path="/" element={<TextForm heading="Enter text to analyze"  mode={mode} showAlert={showAlert} />}/>
           </Routes>
-        </div>
       </Router>
-      {/* { <div className="container"> <About/></div>} */}
     </>
   );
 }

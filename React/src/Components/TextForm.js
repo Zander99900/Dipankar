@@ -22,15 +22,17 @@ export default function TextForm(props) {
   };
 
   const handleCopy = () => {
-    var text = document.getElementById("myBox");
-    text.select();
-    navigator.clipboard.writeText(text.value);
+    navigator.clipboard.writeText(text);
     props.showAlert("Copied To ClipBoard", "success");
   };
   const handleSpace = () => {
     var newtext = text.split(/[ ]+/); //Used Rejex
     setText(newtext.join(" "));
     props.showAlert("Removed Extra Spaces", "success");
+  };
+  const deleteAll = () => {
+    setText("");
+    props.showAlert("Removed Text", "success");
   };
   return (
     <>
@@ -65,6 +67,9 @@ export default function TextForm(props) {
         <button className="btn btn-primary mx-2" onClick={handleSpace}>
           Remove Extra Spaces
         </button>
+        <button className="btn btn-primary mx-2" onClick={deleteAll}>
+          Remove Text
+        </button>
       </div>
       <div
         className="container my-3"
@@ -72,7 +77,13 @@ export default function TextForm(props) {
       >
         <h2>Your text summary</h2>
         <p>
-        {text.trim().length === 0 ? 0: text.trim().split(" ").length} {/*0 word count logic*/} words and {text.length} characters including Spaces
+          {
+            text.split(/\s+/).filter((element) => {
+              return element.length !== 0;
+            }).length
+          }{" "}
+          {/*0 word count logic*/} words and {text.length} characters including
+          Spaces
         </p>
         <h2>Preview</h2>
         <p>{text}</p>
