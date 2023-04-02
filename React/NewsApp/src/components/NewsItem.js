@@ -7,7 +7,7 @@ export class NewsItem extends Component {
       <div className="card" style={{ width: "18rem" }}>
         <img
           className="card-img-top"
-          src={imgUrl}
+          src={imgUrl?imgUrl:"https://png.pngtree.com/png-clipart/20190516/original/pngtree-newspaper-icon-png-image_3568621.jpg"}
           alt="Card cap"
         />
         <div className="card-body">
