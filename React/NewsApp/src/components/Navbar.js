@@ -7,9 +7,9 @@ export default class Navbar extends Component {
       <div>
         <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme = 'dark'>
           <div className="container-fluid">
-            <a className="navbar-brand" href="/general">
+            <Link className="navbar-brand" to="/">
               Zander News
-            </a>
+            </Link>
             <button
               className="navbar-toggler"
               type="button"
