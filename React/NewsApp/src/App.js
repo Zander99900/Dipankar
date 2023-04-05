@@ -7,11 +7,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 export default class App extends Component {
   // c = 'Zander'; learned to use a variable in class component
+  pageSize = 6
   render() {
     //This is a life cycle method which means that whenever react loads a component e.g. navbar, it runs a series of methods
     return (
       <div>
-        pageSize = 6
         <Router>
           <Navbar />
           <Routes>
