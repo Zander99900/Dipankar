@@ -19,15 +19,15 @@ export class News extends Component {
     console.log("I am a constructor");
     this.state = {
       articles: [],
-      loading: true,
+      loading: false,
       page: 1,
     };
   }
 
   // We can change states using setState but we cannot change props, they are read-only
 
-  async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4575892e261444059051e887e80d9dc8&page=1&pageSize=${this.props.pageSize}`;
+  async updateNews() {
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=4575892e261444059051e887e80d9dc8&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -37,52 +37,27 @@ export class News extends Component {
       loading: false,
     });
   }
-  //componentDidMount is executed after render function runs and at constructor runs 1st
+  async componentDidMount() {
+    this.updateNews();
+  }
+
   handlePrevClick = async () => {
-    console.log("this is prev click");
-    let url = `https://newsapi.org/v2/top-headlines?country=${
-      this.props.country
-    }&category=${this.props.category}&apiKey=4575892e261444059051e887e80d9dc8&page=${
-      this.state.page - 1
-    }&pageSize=${this.props.pageSize}`;
-    this.setState({ loading: true });
-    let data = await fetch(url);
-    let parsedData = await data.json();
-    this.setState({
-      page: this.state.page - 1,
-      articles: parsedData.articles,
-      loading: false,
-    });
+    await this.setState({ page: this.state.page - 1 });
+    this.updateNews();
   };
+
   handleNextClick = async () => {
-    if (
-      !(
-        this.state.page + 1 >
-        Math.ceil(this.state.totalResults / this.props.pageSize)
-      )
-    ) {
-      //to handle empty next pages
-      let url = `https://newsapi.org/v2/top-headlines?country=${
-        this.props.country
-      }&category=${this.props.category}&apiKey=4575892e261444059051e887e80d9dc8&page=${
-        this.state.page + 1
-      }&pageSize=${this.props.pageSize}`;
-      this.setState({ loading: true });
-      let data = await fetch(url);
-      let parsedData = await data.json();
-      this.setState({
-        page: this.state.page + 1,
-        articles: parsedData.articles,
-        loading: false,
-      });
-    }
+    await this.setState({ page: this.state.page + 1 });
+    this.updateNews();
   };
   render() {
     return (
       <div className="container my-3">
-        <h1 className="text-center" style={{margin: '30px'}}> Zander News App </h1>
+        <h1 className="text-center" style={{ margin: "30px" }}>
+          Zander News App
+        </h1>
         {this.state.loading && <Spinner />}
-        <div className="row">
+        <div className="row my-2 mx-2">
           {/* this state has 7 objects under 'articles' */}
           {!this.state.loading &&
             this.state.articles.map((element) => {
@@ -99,6 +74,9 @@ export class News extends Component {
                     }
                     imgUrl={element.urlToImage}
                     newsUrl={element.url}
+                    author={element.author}
+                    date={element.publishedAt}
+                    source={element.source.name}
                   />
                 </div>
               );
