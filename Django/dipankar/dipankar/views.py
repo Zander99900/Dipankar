@@ -15,36 +15,65 @@ def index(request):
     )  # use params as 3rd argument in render() if you need to send a list datareturn HttpResponse("Home")
 
 
-# def capitalfirst(request):
-#     return HttpResponse("Capital First")
-
-
 def analyze(request):
     # Get the text
     djtext = request.GET.get("text", "off")  # 2nd argument is default argument
-    removepunc = request.GET.get(
-        "removepunc", "off"
-    )  # to check whether the checkbox is on or off
+    removepunc = request.GET.get("removepunc", "off")  # to check whether the checkbox is on or off
+    capitalfirst = request.GET.get("capitalfirst", "off")  # to check whether the checkbox is on or off
+    removespace = request.GET.get("removespace", "off")  # to check whether the checkbox is on or off
+    countchar = request.GET.get("countchar", "off")  # to check whether the checkbox is on or off
 
     if removepunc == "on":
-        analyzed = ""
-        punctuations = """!()-[]{};:'"\,<>./?@#$%^&*_~"""
-        for char in djtext:
-            if char not in punctuations:
-                analyzed = analyzed + char
+        analyzed = removepunctuation(djtext)
         params = {"Purpose": "Removed Punctuation", "analyzed_text": analyzed}
+        return render(request, "analyze.html", params)
+
+    elif capitalfirst == "on":
+        analyzed = firstcapital(djtext)
+        params = {"Purpose": "Removed Punctuation", "analyzed_text": analyzed}
+        return render(request, "analyze.html", params)
+
+    elif removespace == "on":
+        analyzed = spaceremover(djtext)
+        params = {"Purpose": "Removed Spaces", "analyzed_text": analyzed}
+        return render(request, "analyze.html", params)
+
+    elif countchar == "on":
+        analyzed = charcount(djtext)
+        params = {"Purpose": "Count Characters", "analyzed_text": analyzed}
         return render(request, "analyze.html", params)
 
     else:
         return HttpResponse("Error")
 
 
-def removepunc(request):
-    return HttpResponse("Remove Punctuation <br>  <a href= '/'> Go back to Home </a>")
+def removepunctuation(djtext):
+    analyzed = ""
+    punctuations = """!()-[]{};:'"\,<>./?@#$%^&*_~"""
+    for char in djtext:
+        if char not in punctuations:
+            analyzed = analyzed + char
+    return analyzed
 
 
-# def removespace(request):
-#     return HttpResponse("Remove Spaces <br> <a href= '/'> Go back to Home </a>")
+def spaceremover(djtext):
+    analyzed = ""
+    for char in djtext:
+        if char != " ":
+            analyzed = analyzed + char
+    return analyzed
 
-# def newlineremove(request):
-#     return HttpResponse("Remove New Line <br> <a href= '/'> Go back to Home </a>")
+
+def charcount(djtext):
+    analyzed = len(djtext)
+    return analyzed
+
+
+def firstcapital(djtext):
+    analyzed = ""
+    for char in djtext:
+        if ord(char[0]) >= 97 and ord(char[0]) <= 122: #ord function is used to evaluate the Ascii value of the character
+            analyzed = char - 32
+        else:
+            analyzed = analyzed + char
+    return analyzed

@@ -1,17 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Django Templates</title>
 </head>
+
 <body>
     <!-- <h1>This is first Template of Django
-    My name is {{ name }} and I study {{ education }}
+        My name is {{ name }} and I study {{ education }}
     </h1> -->
+    <script>
+        function limitCheckboxSelection(checkbox) {
+            var checkboxes = document.getElementsByName(checkbox.name);
+            checkboxes.forEach(function (cb) {
+                if (cb !== checkbox && cb.checked) {
+                    cb.checked = false;
+                }
+            });
+        }
+    </script>
     <form action="/analyze" method="get">
-    <h1>Welcome to Text Utils. Enter your text below </h1>
-    <textarea name="text" style="margin: auto; width: 1902px; height: 317px;"></textarea>
-    <input type="checkbox" name="removepunc">Remove Punctuation <br>
-    <button type="submit">Analyze Text</button>
-</form>
+        <h1>Welcome to Text Utils. Enter your text below </h1>
+        <textarea name="text" style="margin: auto; width: 1902px; height: 317px;"></textarea>
+
+        <input type="checkbox" name="removepunc" onchange="limitCheckboxSelection(this)">Remove Punctuation <br>
+        <input type="checkbox" name="capitalfirst" onchange="limitCheckboxSelection(this)">Capitalize 1st Word <br>
+        <input type="checkbox" name="removespace" onchange="limitCheckboxSelection(this)">Remove Space Between Words<br>
+        <input type="checkbox" name="countchar" onchange="limitCheckboxSelection(this)">Count Characters in word <br>
+        <button type="submit">Analyze Text</button>
+    </form>
 </body>
+
 </html>
