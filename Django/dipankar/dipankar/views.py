@@ -1,79 +1,62 @@
-# this file is created by me
+# I have created this file - Dipankar
 from django.http import HttpResponse
 from django.shortcuts import render
 
 
-# Learned how to add navigator links
-# def index(request):
-#     return HttpResponse('''<a href= https://www.youtube.com/playlist?list=PLQEaRBV9gAFu4ovJ41PywklqI7IyXwr01>Coder Army  Playlist </a> <br> <a href= https://www.youtube.com/playlist?list=PLV8vIYTIdSnYsdt0Dh9KkD9WFEi7nVgbe>AI Playlist </a> <br> <a href= https://www.youtube.com/playlist?list=PLV8vIYTIdSnZjLhFRkVBsjQr5NxIiq1b3>Discrete Math Playlist </a>''')
 def index(request):
-    # params = {'name': 'dipankar', 'education':'MCA'}
-    dktext = request.GET.get("text", "default")
-    print(dktext)
-    return render(
-        request, "index.html"
-    )  # use params as 3rd argument in render() if you need to send a list datareturn HttpResponse("Home")
+    return render(request, 'index.html')
 
+    # return HttpResponse("Home")
 
 def analyze(request):
-    # Get the text
-    djtext = request.GET.get("text", "off")  # 2nd argument is default argument
-    removepunc = request.GET.get("removepunc", "off")  # to check whether the checkbox is on or off
-    capitalfirst = request.GET.get("capitalfirst", "off")  # to check whether the checkbox is on or off
-    removespace = request.GET.get("removespace", "off")  # to check whether the checkbox is on or off
-    countchar = request.GET.get("countchar", "off")  # to check whether the checkbox is on or off
+    #Get the text
+    djtext = request.GET.get('text', 'default')
 
+    # Check checkbox values
+    removepunc = request.GET.get('removepunc', 'off')
+    fullcaps = request.GET.get('fullcaps', 'off')
+    newlineremover = request.GET.get('newlineremover', 'off')
+    extraspaceremover = request.GET.get('extraspaceremover', 'off')
+
+    #Check which checkbox is on
     if removepunc == "on":
-        analyzed = removepunctuation(djtext)
-        params = {"Purpose": "Removed Punctuation", "analyzed_text": analyzed}
-        return render(request, "analyze.html", params)
+        punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+        analyzed = ""
+        for char in djtext:
+            if char not in punctuations:
+                analyzed = analyzed + char
+        params = {'purpose':'Removed Punctuations', 'analyzed_text': analyzed}
+        djtext = analyzed
 
-    elif capitalfirst == "on":
-        analyzed = firstcapital(djtext)
-        params = {"Purpose": "Removed Punctuation", "analyzed_text": analyzed}
-        return render(request, "analyze.html", params)
+    if(fullcaps=="on"):
+        analyzed = ""
+        for char in djtext:
+            analyzed = analyzed + char.upper()
 
-    elif removespace == "on":
-        analyzed = spaceremover(djtext)
-        params = {"Purpose": "Removed Spaces", "analyzed_text": analyzed}
-        return render(request, "analyze.html", params)
+        params = {'purpose': 'Changed to Uppercase', 'analyzed_text': analyzed}
+        # Analyze the text
+        djtext = analyzed
 
-    elif countchar == "on":
-        analyzed = charcount(djtext)
-        params = {"Purpose": "Count Characters", "analyzed_text": analyzed}
-        return render(request, "analyze.html", params)
+    if(extraspaceremover=="on"):
+        analyzed = ""
+        for index, char in enumerate(djtext):
+            if not(djtext[index] == " " and djtext[index+1]==" "):
+                analyzed = analyzed + char
 
-    else:
+        params = {'purpose': 'Removed NewLines', 'analyzed_text': analyzed}
+        # Analyze the text
+        djtext = analyzed
+
+    if (newlineremover == "on"):
+        analyzed = ""
+        for char in djtext:
+            if char != "\n":
+                analyzed = analyzed + char
+
+        params = {'purpose': 'Removed NewLines', 'analyzed_text': analyzed}
+        # Analyze the text
+    if (removepunc!="on" and fullcaps !="on" and extraspaceremover != "on" and newlineremover!="on"):
         return HttpResponse("Error")
+    
+    return render(request,'analyze.html',params)
 
-
-def removepunctuation(djtext):
-    analyzed = ""
-    punctuations = """!()-[]{};:'"\,<>./?@#$%^&*_~"""
-    for char in djtext:
-        if char not in punctuations:
-            analyzed = analyzed + char
-    return analyzed
-
-
-def spaceremover(djtext):
-    analyzed = ""
-    for char in djtext:
-        if char != " ":
-            analyzed = analyzed + char
-    return analyzed
-
-
-def charcount(djtext):
-    analyzed = len(djtext)
-    return analyzed
-
-
-def firstcapital(djtext):
-    analyzed = ""
-    for char in djtext:
-        if ord(char[0]) >= 97 and ord(char[0]) <= 122: #ord function is used to evaluate the Ascii value of the character
-            analyzed = char - 32
-        else:
-            analyzed = analyzed + char
-    return analyzed
