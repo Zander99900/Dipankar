@@ -17,7 +17,7 @@ Then you have to activate the environment, by typing this command:
 
 Windows: \
 for cmd :
-### `myworld\Scripts\activate.bat`
+### `myworld\\Scripts\\activate`
 for powershell : 
 ### `myworld\Scripts\activate.ps1`
 
